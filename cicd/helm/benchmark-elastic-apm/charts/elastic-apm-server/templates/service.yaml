@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elastic-apm-server
+  labels:
+    app: {{ template "elastic-apm-server.name" . }}
+    chart: {{ template "elastic-apm-server.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "elastic-apm-server.name" . }}
+    release: {{ .Release.Name }}

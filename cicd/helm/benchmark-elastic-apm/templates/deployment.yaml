@@ -1,0 +1,58 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "benchmark-elastic-apm.fullname" . }}
+  labels:
+    app: {{ template "benchmark-elastic-apm.name" . }}
+    chart: {{ template "benchmark-elastic-apm.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "benchmark-elastic-apm.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "benchmark-elastic-apm.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: "ELASTIC_APM_SERVICE_NAME"
+            value: performance-benchmarking-with-tomcat
+          - name: "ELASTIC_APM_APPLICATION_PACKAGES"
+            value: io.github.bhuwanupadhyay
+          - name: "ELASTIC_APM_SERVER_URL"
+            value: http://elastic-apm-server:8200
+          ports:
+          - name: http
+            containerPort: {{ .Values.service.port }}
+            protocol: TCP
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: http
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

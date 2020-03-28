@@ -1,0 +1,26 @@
+{
+  "name": "cicd",
+  "version": "1.0.0",
+  "description": "CICD configuration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BhuwanUpadhyay/cicd.git"
+  },
+  "keywords": [
+    "cicd",
+    "travis-ci",
+    "circleci",
+    "gitlab",
+    "jenkins"
+  ],
+  "author": "Bhuwan Prasad Upadhyay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BhuwanUpadhyay/cicd/issues"
+  },
+  "homepage": "https://github.com/BhuwanUpadhyay/cicd#readme"
+}

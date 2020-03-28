@@ -1,0 +1,15 @@
+[
+  {
+    "orderId": "1",
+    "customerId": "1",
+    "deliveryAddress": {
+      "address": "JLT, Dubai, UAE"
+    },
+    "orderLines": [
+      {
+        "itemId": "1",
+        "quantity": 10
+      }
+    ]
+  }
+]

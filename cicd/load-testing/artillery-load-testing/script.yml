@@ -1,0 +1,28 @@
+config:
+  target: "{{ $processEnvironment.SERVICE_API_ENDPOINT }}"
+  processor: "./processor.js"
+  phases:
+  - duration: 60
+    arrivalRate: 20
+scenarios:
+- name: "POST"
+  flow:
+  - post:
+      headers:
+        content-type: "application/json"
+      url: "/orders"
+      beforeRequest: "assignNewId"
+      body: |
+        {
+          "orderId": "@@id@@",
+          "customerId": "1",
+          "deliveryAddress": {
+            "address": "JLT, Dubai, UAE"
+          },
+          "orderLines": [
+            {
+              "itemId": "1",
+              "quantity": 10
+            }
+          ]
+        }

@@ -1,0 +1,47 @@
+version: "3"
+services:
+  apm-elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    ports:
+      - 9200
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    environment:
+      ELASTICSEARCH_URL: http://apm-elasticsearch:9200
+    ports:
+      - 5601:5601
+    links:
+      - apm-elasticsearch
+  elastic-apm:
+    image: docker.elastic.co/apm/apm-server:6.4.2
+    command: [
+        "bash",
+        "-c",
+        "apm-server run -e -E
+                          output.elasticsearch.hosts=['http://apm-elasticsearch:9200']
+                          "]
+    links:
+      - apm-elasticsearch
+    ports:
+      - 8200
+  performance-benchmarking-with-tomcat:
+    image: docker.io/devbhuwan/performance-benchmarking-with-tomcat
+    build:
+      context: cicd/docker
+      dockerfile: Dockerfile
+      args:
+      - WAR_FILE=springboot-order-crud-service.war
+    ports:
+    - 8000:8000
+    - 8080:8080
+    environment:
+      ELASTIC_APM_SERVICE_NAME: performance-benchmarking-with-tomcat
+      ELASTIC_APM_APPLICATION_PACKAGES: io.github.bhuwanupadhyay
+      ELASTIC_APM_SERVER_URLS: http://elastic-apm:8200
+    depends_on:
+    - apm-elasticsearch
+    - elastic-apm
+    - kibana
+    links:
+    - elastic-apm
+
