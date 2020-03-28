@@ -1,9 +1,2 @@
-= performance benchmarking with tomcat image:https://circleci.com/gh/BhuwanUpadhyay/performance-benchmarking-with-tomcat.svg?style=svg["CircleCI", link="https://circleci.com/gh/BhuwanUpadhyay/performance-benchmarking-with-tomcat"]
+= Performance Benchmarking with Tomcat
 
-image:https://img.shields.io/github/license/BhuwanUpadhyay/performance-benchmarking-with-tomcat.svg?style=for-the-badge["GitHub license",link="https://github.com/BhuwanUpadhyay/performance-benchmarking-with-tomcat/blob/master/LICENSE"]
-
-Integrating benchmark metrics with CI/CD pipeline.
-
-image:https://badge.waffle.io/BhuwanUpadhyay/performance-benchmarking-with-tomcat.svg?columns=all&style=flat-square["Waffle.io - Columns and their card count", link="https://waffle.io/BhuwanUpadhyay/performance-benchmarking-with-tomcat"]
-
-include::docs/index.adoc[Index]
